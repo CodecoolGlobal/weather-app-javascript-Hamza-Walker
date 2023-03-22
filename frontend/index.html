@@ -3,18 +3,50 @@
 	<head>
 		<link href="styles.css" rel="stylesheet" />
 
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>This is FRONTEND</title>
-	<script src="script.js" type="module"></script>
-</head>
-<body>
-
-    <label for="city">Enter a city:</label>
-<input type="text" id="city" name="city" autocomplete="off">
-<div id="suggestions"></div>
-<pre id ="debugoutput"></pre>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>This is FRONTEND</title>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script src="./script.js" type="module"></script>
+	</head>
+	<body>
+		<nav>
+			<input id="city_input" list="city_options" name="city" type="text" placeholder="Search" />
+			<datalist id="city_options">
+				<option></option>
+				<option></option>
+				<option></option>
+				<option></option>
+				<option></option>
+			</datalist>
+		</nav>
+		<main>
+			<div class="weather-widget">
+				<div>
+					<h1 id="widget_name"></h1>
+					<p id="widget_region"></p>
+					<p id="widget_country"></p>
+					<p id="widget_localtime"></p>
+				</div>
+				<div>
+					<div id="widget_current">
+						<h2>Now</h2>
+						<p id="widget_temp_c"></p>
+						<p id="widget_is_day"></p>
+						<img id="widget_condition" />
+						<p id="widget_wind_kph"></p>
+						<p id="widget_pressure_mb"></p>
+						<p id="widget_precip_mm"></p>
+						<p id="widget_humidity"></p>
+						<p id="widget_cloud"></p>
+						<p id="widget_feelslike_c"></p>
+					</div>
+					<pre id="widget_forecast"></pre>
+				</div>
+			</div>
+			<pre id="debug"></pre>
+		</main>
 
 		<!-- RUN: node backend/server.js -->
 	</body>
