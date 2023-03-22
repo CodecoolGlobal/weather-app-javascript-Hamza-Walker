@@ -1,3 +1,4 @@
+import cities from "./cities.js"
 const apiKey = "e64620c4c83e4a1d90095232232103";
 let selectedCity = "";
 let apiUrl = `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${selectedCity}`;
@@ -55,7 +56,7 @@ const callApiWithCityMatch = (apiUrl) => {
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            console.log(data.current.condition.code);
             createPreTag(data)
         })
         .catch(error => console.error(error));
