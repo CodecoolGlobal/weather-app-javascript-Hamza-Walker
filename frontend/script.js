@@ -44,7 +44,7 @@ const handleSuggestionClick = (event) => {
     const suggestion = event.target;
     input.value = suggestion.textContent;
     selectedCity = suggestion.textContent;
-    apiUrl = `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${selectedCity}`;
+    apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${selectedCity}&days=1`;
     clearSuggestions();
     console.log(selectedCity);
     callApiWithCityMatch(apiUrl);
@@ -54,7 +54,7 @@ const callApiWithCityMatch = (apiUrl) => {
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            console.log(data[0]);
+            console.log(data);
         })
         .catch(error => console.error(error));
 }
