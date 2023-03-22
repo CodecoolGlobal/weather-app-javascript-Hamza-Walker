@@ -8,6 +8,7 @@ const uniqueCityNames = [...new Set(cityNames)];
 const MAX_SUGGESTIONS = 8;
 const input = document.getElementById("city");
 const suggestions = document.getElementById("suggestions");
+const apiInformation = document.getElementById("debugoutput")
 
 const autocompleteInputField = () => {
     input.addEventListener("input", handleInput);
@@ -55,8 +56,14 @@ const callApiWithCityMatch = (apiUrl) => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
+            createPreTag(data)
         })
         .catch(error => console.error(error));
 }
 
+const createPreTag = (data) => {
+    const tag = document.createElement("pre")
+    tag.innerText = JSON.stringify(data, null, 2)
+    apiInformation.appendChild(tag)
+}
 autocompleteInputField();
