@@ -3,13 +3,18 @@ import { getForecast, getAutocompleteSuggestions } from "./scripts/weatherAPI.js
 const LOCAL_STORAGE_KEY = "app.weather"
 const LOCAL_STORAGE_LAST_CITY = `${LOCAL_STORAGE_KEY}.last-city`
 
-const lastCity = localStorage.getItem(LOCAL_STORAGE_LAST_CITY) ?? "Vienna"
-const forecast = await getForecast(lastCity, 8)
-storeCity(lastCity)
-updateWidget(forecast)
+main()
 
-city_input.oninput = getSuggestions
-city_input.onchange = handleCityChanged
+async function main() {
+	const lastCity = localStorage.getItem(LOCAL_STORAGE_LAST_CITY) ?? "Vienna"
+	const forecast = await getForecast(lastCity, 8)
+
+	storeAsLastCity(lastCity)
+	updateWidget(forecast)
+
+	city_input.oninput = getSuggestions
+	city_input.onchange = handleCityChanged
+}
 
 async function getSuggestions() {
 	if (city_input.value === "") return
@@ -29,16 +34,18 @@ async function handleCityChanged() {
 
 	const forecast = await getForecast(city_input.value, 8)
 
-	storeCity(city_input.value)
+	storeAsLastCity(city_input.value)
 	updateWidget(forecast)
 
 	city_input.value = ""
 
 	debug.innerText = JSON.stringify(forecast, null, 4)
 }
-function storeCity(city) {
+
+function storeAsLastCity(city) {
 	localStorage.setItem(LOCAL_STORAGE_LAST_CITY, city)
 }
+
 function updateWidget({ location, current, forecast }) {
 	const { name, region, country, localtime } = location
 	const { temp_c, is_day, condition, wind_kph, pressure_mb, precip_mm, humidity, cloud, feelslike_c } = current
