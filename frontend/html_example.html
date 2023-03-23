@@ -1,0 +1,75 @@
+<head>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+	<link href="cssappexample.css" rel="stylesheet" />
+	<script src="script.js" type="module"></script>
+
+</head>
+<h1 id="widget_name"></h1>
+<div class="container">
+	<div class="weather-side">
+		<div class="weather-gradient">
+			<div class="date-container">
+				<h2 class="date-dayname" id="widget_dayname"></h2>
+				<span class="date-day" id="widget_date"></span>
+				<i class="location-icon" data-feather="map-pin"></i>
+				<span class="location" id="widget_location"></span>
+			</div>
+			<div class="weather-container">
+				<img class="weather-icon" id="widget_condition" src="" alt="Weather Icon">
+				<h1 class="weather-temp" id="widget_temp_c"></h1>
+				<h3 class="weather-desc" id="widget_condition_text"></h3>
+			</div>
+		</div>
+	</div>
+	<div class="info-side">
+		<div class="today-info-container">
+			<div class="today-info precipitation">
+				<span class="title">PRECIPITATION</span>
+				<span class="value" id="widget_precip_mm"></span>
+				<div class="clear"></div>
+			</div>
+			<div class="today-info humidity">
+				<span class="title">HUMIDITY</span>
+				<span class="value" id="widget_humidity"></span>
+				<div class="clear"></div>
+			</div>
+			<div class="today-info wind">
+				<span class="title">WIND</span>
+				<span class="value" id="widget_wind_kph"></span>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="week-container">
+			<ul class="week-list">
+				<li class="active">
+					<img class="day-icon" src="" alt="Weather Icon">
+					<span class="day-name" id="widget_today_name"></span>
+					<span class="day-temp" id="widget_today_temp"></span>
+				</li>
+				<li>
+					<img class="day-icon" src="" alt="Weather Icon">
+					<span class="day-name" id="widget_tomorrow_name"></span>
+					<span class="day-temp" id="widget_tomorrow_temp"></span>
+				</li>
+				<li>
+					<img class="day-icon" src="" alt="Weather Icon">
+					<span class="day-name" id="widget_third_name"></span>
+					<span class="day-temp" id="widget_third_temp"></span>
+                </li>
+                <li>
+                    <img class="day-icon" src="" alt="Weather Icon">
+                    <span class="day-name" id="widget_fourth_name"></span>
+                    <span class="day-temp" id="widget_fourth_temp"></span>
+                    <div class="clear"></div>
+                </li>
+			</ul>
+		</div>
+		<div class="location-container">
+			<button class="location-button">
+				<i data-feather="map-pin"></i>
+				<span>Change location</span>
+			</button>
+		</div>
+	</div>
+</div>
