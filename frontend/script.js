@@ -54,12 +54,7 @@ function updateWidget({ location, current, forecast }) {
 	widget_name.innerText = name
 	widget_region.innerText = region
 	widget_country.innerText = country
-	widget_localtime.innerText = Intl.DateTimeFormat("en-us", {
-		day: "2-digit",
-		month: "long",
-		year: "numeric",
-		weekday: "long"
-	}).format(new Date(localtime))
+	widget_localtime.innerText = new Date(localtime).toLocaleDateString()
 	widget_temp_c.innerText = temp_c + "°C"
 	widget_is_day.innerText = is_day ? "day" : "night"
 	widget_condition.src = condition.icon
