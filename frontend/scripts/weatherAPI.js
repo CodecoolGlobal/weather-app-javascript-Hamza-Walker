@@ -30,7 +30,7 @@ export async function getForecast(name, days = 2) {
 	}
 }
 
-export async function getAutocompleteSuggestions(name, onDataReceivedCallback) {
+export async function getAutocompleteSuggestions(name) {
 	const searchParams = new URLSearchParams({ ...defaultParams, q: name })
 
 	if (abortControllers.autocomplete) abortControllers.autocomplete.abort()

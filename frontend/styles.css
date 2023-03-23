@@ -1,48 +1,54 @@
+/* Styles for input field */
+.weather-widget{
+  display: flex;
 
-.autocomplete-wrapper {
-  position: relative;
-  display: inline-block;
 }
+.left-side {
+  background-color: powderblue;
+  width: 50%;
+  text-align: center;
 
-.city {
+}
+.right-side {
+  background-color: lightgray;
+  width: 50%;
+  text-align: center;
+
+}
+.city-country-date{
+  display: flex;
+  background-color: whitesmoke;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+#city_input {
+  width: 100%;
   padding: 10px;
   font-size: 16px;
   border: none;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  width: 300px;
-  background-color: #0077be; /* blue background color */
-  color: white; /* white text color */
+  border-bottom: 2px solid rgb(204, 204, 204);
+  outline: none;
 }
 
-.suggestions {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  background-color: white;
+/* Styles for option list */
+#city_options {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
   border: 1px solid #ccc;
-  border-top: none;
-  border-radius: 0 0 4px 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-height: 200px;
   overflow-y: auto;
 }
 
-.suggestion {
+#city_options option {
   padding: 10px;
+  font-size: 16px;
+  border-bottom: 1px solid #ccc;
   cursor: pointer;
 }
 
-.suggestion:nth-child(odd) {
-  background-color: #f2f2f2; /* light gray background color for odd-indexed suggestions */
-}
-
-.suggestion:nth-child(even) {
-  background-color: #d9d9d9; /* darker gray background color for even-indexed suggestions */
-}
-
-.suggestion:hover {
-  background-color: #0077be;
-  color: white;
+#city_options option:hover {
+  background-color: #f2f2f2;
 }

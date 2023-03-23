@@ -23,28 +23,31 @@
 		</nav>
 		<main>
 			<div class="weather-widget">
-				<div>
+				<div class="left-side">
 					<h1 id="widget_name"></h1>
-					<p id="widget_region"></p>
-					<p id="widget_country"></p>
-					<p id="widget_localtime"></p>
+					<div class ="city-country-date">
+						<p id="widget_region"></p>
+						<p id="widget_country"></p>
+						<p id="widget_localtime"></p>
+					</div>
+
+					<img id="widget_condition" />
+					<p id="widget_temp_c"></p>
 				</div>
-				<div>
+				<div class="right-side">
 					<div id="widget_current">
 						<h2>Now</h2>
-						<p id="widget_temp_c"></p>
-						<p id="widget_is_day"></p>
-						<img id="widget_condition" />
-						<p id="widget_wind_kph"></p>
-						<p id="widget_pressure_mb"></p>
-						<p id="widget_precip_mm"></p>
-						<p id="widget_humidity"></p>
-						<p id="widget_cloud"></p>
-						<p id="widget_feelslike_c"></p>
+						<p><strong>Day/Night:</strong> <span id="widget_is_day"></span></p>
+						<p><strong>Wind:</strong> <span id="widget_wind_kph"></span></p>
+						<p><strong>Pressure:</strong> <span id="widget_pressure_mb"></span></p>
+						<p><strong>Precipitation:</strong> <span id="widget_precip_mm"></span></p>
+						<p><strong>Humidity:</strong> <span id="widget_humidity"></span></p>
+						<p><strong>Cloud:</strong> <span id="widget_cloud"></span></p>
+						<p><strong>Feels like:</strong> <span id="widget_feelslike_c"></span> &#8451;</p>
 					</div>
-					<pre id="widget_forecast"></pre>
 				</div>
 			</div>
+			<pre id="widget_forecast"></pre>
 			<pre id="debug"></pre>
 		</main>
 

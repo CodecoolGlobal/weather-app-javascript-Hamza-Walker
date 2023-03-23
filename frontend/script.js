@@ -1,3 +1,4 @@
+import { weatherIcons }from "./data/weatherConditions.js"
 import { getForecast, getAutocompleteSuggestions } from "./scripts/weatherAPI.js"
 
 const LOCAL_STORAGE_KEY = "app.weather"
@@ -33,13 +34,14 @@ async function handleCityChanged() {
 	if (city_input.value === "") return
 
 	const forecast = await getForecast(city_input.value, 8)
-
 	storeAsLastCity(city_input.value)
 	updateWidget(forecast)
 
 	city_input.value = ""
 
 	debug.innerText = JSON.stringify(forecast, null, 4)
+	// console.log(forecast.current.condition.code)
+
 }
 
 function storeAsLastCity(city) {
@@ -50,6 +52,12 @@ function updateWidget({ location, current, forecast }) {
 	const { name, region, country, localtime } = location
 	const { temp_c, is_day, condition, wind_kph, pressure_mb, precip_mm, humidity, cloud, feelslike_c } = current
 	const forecasts = forecast.forecastday
+	const conditionCode = current.condition.code
+	const weatherIcon = weatherIcons.find(icon => icon.code === conditionCode).icon;
+
+	console.log(weatherIcon)
+
+
 
 	widget_name.innerText = name
 	widget_region.innerText = region
@@ -57,7 +65,8 @@ function updateWidget({ location, current, forecast }) {
 	widget_localtime.innerText = new Date(localtime).toLocaleDateString()
 	widget_temp_c.innerText = temp_c + "°C"
 	widget_is_day.innerText = is_day ? "day" : "night"
-	widget_condition.src = condition.icon
+	// add different weather image from the json file 
+	widget_condition.src = weatherIcon
 	widget_wind_kph.innerText = wind_kph + "km/h"
 	widget_pressure_mb.innerText = pressure_mb + "mbar"
 	widget_precip_mm.innerText = precip_mm + "mm"
@@ -67,3 +76,6 @@ function updateWidget({ location, current, forecast }) {
 
 	widget_forecast.innerText = forecasts.map((forecast) => JSON.stringify(forecast, null, 2)).join("\n")
 }
+// console.log(weatherCodes);
+
+// console.log(weatherIcons)
