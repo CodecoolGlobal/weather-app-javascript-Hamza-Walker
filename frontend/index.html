@@ -1,58 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<link href="styles.css" rel="stylesheet" />
-
-
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>This is FRONTEND</title>
-	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<script src="script.js" type="module"></script>
-</head>
-
-		<nav>
-			<input id="city_input" list="city_options" name="city" type="text" placeholder="Search" />
-			<datalist id="city_options">
-				<option></option>
-				<option></option>
-				<option></option>
-				<option></option>
-				<option></option>
-			</datalist>
-		</nav>
-		<main>
-			<div class="weather-widget">
-				<div class="left-side">
-					<h1 id="widget_name"></h1>
-					<div class="city-country-date">
-						<p id="widget_region"></p>
-						<p id="widget_country"></p>
-						<p id="widget_localtime"></p>
+		<link href="./css/styles.css" rel="stylesheet" />
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script src="script.js" type="module"></script>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>This is FRONTEND</title>
+	</head>
+	<body>
+		<main class="flex-row justify-center align-center">
+			<div class="weather-widget flex-row">
+				<div id="ww_background_image" class="today flex-column justify-center align-center">
+					<div class="today-temperature flex-row justify-center align-center" id="ww_city_temperature"></div>
+					<div id="ww_city_condition"></div>
+					<div class="city-name">
+						<h1 id="ww_city_name"></h1>
+						<div id="ww_city_country"></div>
 					</div>
-
-					<img id="widget_condition" />
-					<p id="widget_temp_c"></p>
 				</div>
-				<div class="right-side">
-					<div id="widget_current">
-						<h2>Now</h2>
-						<p><strong>Day/Night:</strong> <span id="widget_is_day"></span></p>
-						<p><strong>Wind:</strong> <span id="widget_wind_kph"></span></p>
-						<p><strong>Pressure:</strong> <span id="widget_pressure_mb"></span></p>
-						<p><strong>Precipitation:</strong> <span id="widget_precip_mm"></span></p>
-						<p><strong>Humidity:</strong> <span id="widget_humidity"></span></p>
-						<p><strong>Cloud:</strong> <span id="widget_cloud"></span></p>
-						<p><strong>Feels like:</strong> <span id="widget_feelslike_c"></span> &#8451;</p>
-					</div>
+				<div class="forecast flex-column">
+					<input id="city_input" list="city_options" name="city" type="text" placeholder="Search" />
 				</div>
 			</div>
-			<pre id="widget_forecast"></pre>
-			<pre id="debug"></pre>
 		</main>
-
->>>>>>> 12a91ce4806ee26b3fc1e4ec333ffd56128bc1cf
-		<!-- RUN: node backend/server.js -->
 	</body>
+	<datalist id="city_options">
+		<option></option>
+		<option></option>
+		<option></option>
+		<option></option>
+		<option></option>
+	</datalist>
 </html>

@@ -1,5 +1,5 @@
 import { getImages } from "./scripts/pexelsAPI.js"
-import { weatherIcons } from "./data/weatherConditions.js"
+import { weatherIcons } from "./data/weatherIcons.js"
 import { getForecast, getAutocompleteSuggestions } from "./scripts/weatherAPI.js"
 
 const LOCAL_STORAGE_KEY = "app.weather"
@@ -9,17 +9,11 @@ main()
 
 async function main() {
 	const lastCity = localStorage.getItem(LOCAL_STORAGE_LAST_CITY) ?? "Vienna"
-	const forecast = await getForecast(lastCity, 8)
 
-	const backgroundImage = await getImages("Vienna")
-
-	debug.innerText = JSON.stringify(forecast, null, 2) //JSON.stringify(backgroundImage, null, 2)
-
-	storeAsLastCity(lastCity)
-	updateWidget(forecast)
+	changeCity(lastCity)
 
 	city_input.oninput = getSuggestions
-	city_input.onchange = handleCityChanged
+	city_input.onchange = () => changeCity(city_input.value)
 }
 
 async function getSuggestions() {
@@ -35,49 +29,44 @@ async function getSuggestions() {
 	})
 }
 
-async function handleCityChanged() {
-	if (city_input.value === "") return
+async function changeCity(city) {
+	if (city === "") return
 
-	const forecast = await getForecast(city_input.value, 8)
-	storeAsLastCity(city_input.value)
-	updateWidget(forecast)
+	const [forecast, images] = await Promise.all([getForecast(city, 8), getImages(city)])
+	console.log(forecast, images)
+
+	storeAsLastCity(city)
+	updateWidget(forecast, images)
+	setBodyBackground(images)
 
 	city_input.value = ""
-
-	debug.innerText = JSON.stringify(forecast, null, 4)
-	// console.log(forecast.current.condition.code)
 }
 
 function storeAsLastCity(city) {
 	localStorage.setItem(LOCAL_STORAGE_LAST_CITY, city)
 }
 
-function updateWidget({ location, current, forecast }) {
+function setBodyBackground({ photos }) {
+	if (!photos?.length) console.log("no photo found!")
+	const getRandomId = () => Math.floor(Math.random() * photos.length)
+	const randomPic = photos[getRandomId()]
+	document.body.style = `background-image: url(${randomPic.src.landscape});`
+	ww_background_image.style = `background-image: url(${randomPic.src.portrait})`
+}
+function updateWidget({ location, current, forecast }, { photos }) {
 	const { name, region, country, localtime } = location
 	const { temp_c, is_day, condition, wind_kph, pressure_mb, precip_mm, humidity, cloud, feelslike_c } = current
 	const forecasts = forecast.forecastday
 	const conditionCode = current.condition.code
 	const weatherIcon = weatherIcons.find((icon) => icon.code === conditionCode).icon
 
-	console.log(weatherIcon)
+	console.log(weatherIcons.find((icon) => icon.code === current.condition.code).icon)
 
-	widget_name.innerText = name
-	widget_region.innerText = region
-	widget_country.innerText = country
-	widget_localtime.innerText = new Date(localtime).toLocaleDateString()
-	widget_temp_c.innerText = temp_c + "°C"
-	widget_is_day.innerText = is_day ? "day" : "night"
-	// add different weather image from the json file
-	widget_condition.src = weatherIcon
-	widget_wind_kph.innerText = wind_kph + "km/h"
-	widget_pressure_mb.innerText = pressure_mb + "mbar"
-	widget_precip_mm.innerText = precip_mm + "mm"
-	widget_humidity.innerText = humidity + "%"
-	widget_cloud.innerText = cloud + " cloud?"
-	widget_feelslike_c.innerText = feelslike_c + "°C"
-
-	// widget_forecast.innerText = forecasts.map((forecast) => JSON.stringify(forecast, null, 2)).join("\n")
+	ww_city_name.innerText = name
+	ww_city_country.innerText = `${region}, ${country}`
+	ww_city_temperature.style = `background-image: url(${
+		weatherIcons.find((icon) => icon.code === current.condition.code).icon
+	})`
+	ww_city_temperature.innerText = temp_c
+	ww_city_condition.innerText = condition.text
 }
-// console.log(weatherCodes);
-
-// console.log(weatherIcons)
