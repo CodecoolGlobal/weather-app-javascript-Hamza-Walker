@@ -59,7 +59,7 @@ function updateWidget({ location, current, forecast }) {
 	widget_is_day.innerText = is_day ? "day" : "night"
 	widget_condition.src = condition.icon
 	widget_wind_kph.innerText = wind_kph + "km/h"
-	widget_pressure_mb.innerText = pressure_mb + "mb"
+	widget_pressure_mb.innerText = pressure_mb + "mbar"
 	widget_precip_mm.innerText = precip_mm + "mm"
 	widget_humidity.innerText = humidity + "%"
 	widget_cloud.innerText = cloud + " cloud?"
