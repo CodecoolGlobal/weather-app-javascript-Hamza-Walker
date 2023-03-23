@@ -13,72 +13,69 @@ async function main() {
 	storeAsLastCity(lastCity)
 	updateWidget(forecast)
 
-const autocompleteInputField = () => {
-	input.addEventListener("input", handleInput)
+	city_input.oninput = getSuggestions
+	city_input.onchange = handleCityChanged
 }
 
-const handleInput = () => {
-	const userInput = input.value
-	const matches = uniqueCityNames
-		.filter((city) => city.toLowerCase().startsWith(userInput.toLowerCase()))
-		.slice(0, MAX_SUGGESTIONS)
+async function getSuggestions() {
+	if (city_input.value === "") return
 
-	if (matches.length > 0) {
-		clearSuggestions()
-		matches.forEach((match) => {
-			const suggestion = createSuggestion(match)
-			suggestion.addEventListener("click", handleSuggestionClick)
-			suggestions.appendChild(suggestion)
-		})
-	} else {
-		clearSuggestions()
-	}
-}
-// getForecast(defaultLocation,3,recieveSuggestions)
-
-const clearSuggestions = () => {
-	suggestions.innerHTML = ""
+	const cities = await getAutocompleteSuggestions(city_input.value)
+	const options = [...city_options.children]
+	options.forEach((option, index) => {
+		const city = cities?.[index]
+		const suggestion = city ? `${city.name}, ${city.region}, ${city.country}` : ""
+		option.value = suggestion
+		option.innerText = suggestion
+	})
 }
 
-const createSuggestion = (match) => {
-	const suggestion = document.createElement("div")
-	suggestion.classList.add("suggestion")
-	suggestion.textContent = match
-	return suggestion
+async function handleCityChanged() {
+	if (city_input.value === "") return
+
+	const forecast = await getForecast(city_input.value, 8)
+	storeAsLastCity(city_input.value)
+	updateWidget(forecast)
+
+	city_input.value = ""
+
+	debug.innerText = JSON.stringify(forecast, null, 4)
+	// console.log(forecast.current.condition.code)
+
 }
 
-const handleSuggestionClick = (event) => {
-	const suggestion = event.target
-	input.value = suggestion.textContent
-	selectedCity = suggestion.textContent
-	apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${selectedCity}&days=1`
-	clearSuggestions()
-	console.log(selectedCity)
-	callApiWithCityMatch(apiUrl)
+function storeAsLastCity(city) {
+	localStorage.setItem(LOCAL_STORAGE_LAST_CITY, city)
 }
 
-const callApiWithCityMatch = (apiUrl) => {
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data.current.condition.code);
-            createPreTag(data)
-        })
-        .catch(error => console.error(error));
-	fetch(apiUrl)
-		.then((response) => response.json())
-		.then((data) => {
-			console.log(data)
-			createPreTag(data)
-		})
-		.catch((error) => console.error(error))
-}
+function updateWidget({ location, current, forecast }) {
+	const { name, region, country, localtime } = location
+	const { temp_c, is_day, condition, wind_kph, pressure_mb, precip_mm, humidity, cloud, feelslike_c } = current
+	const forecasts = forecast.forecastday
+	const conditionCode = current.condition.code
+	const weatherIcon = weatherIcons.find(icon => icon.code === conditionCode).icon;
 
-const createPreTag = (data) => {
-	const tag = document.createElement("pre")
-	tag.innerText = JSON.stringify(data, null, 2)
-	apiInformation.appendChild(tag)
+	console.log(weatherIcon)
+
+
+
+	widget_name.innerText = name
+	widget_region.innerText = region
+	widget_country.innerText = country
+	widget_localtime.innerText = new Date(localtime).toLocaleDateString()
+	widget_temp_c.innerText = temp_c + "°C"
+	widget_is_day.innerText = is_day ? "day" : "night"
+	// add different weather image from the json file 
+	widget_condition.src = weatherIcon
+	widget_wind_kph.innerText = wind_kph + "km/h"
+	widget_pressure_mb.innerText = pressure_mb + "mbar"
+	widget_precip_mm.innerText = precip_mm + "mm"
+	widget_humidity.innerText = humidity + "%"
+	widget_cloud.innerText = cloud + " cloud?"
+	widget_feelslike_c.innerText = feelslike_c + "°C"
+
+	widget_forecast.innerText = forecasts.map((forecast) => JSON.stringify(forecast, null, 2)).join("\n")
 }
-autocompleteInputField()
+// console.log(weatherCodes);
 
 // console.log(weatherIcons)
