@@ -1,4 +1,4 @@
-import axios from "axios"
+
 
 const API_URL = "https://api.weatherapi.com/v1"
 
@@ -16,7 +16,7 @@ const abortControllers = {
 
 const api = axios.create({ baseURL: API_URL, method: "get" })
 
-async function getForecast(name, days = 3, onDataReceivedCallback) {
+export function getForecast(name, days = 3, onDataReceivedCallback) {
 	const searchParams = new URLSearchParams({ ...defaultParams, q: name, days: 3 })
 
 	if (abortControllers.forecast) abortControllers.forecast.abort()
@@ -29,7 +29,7 @@ async function getForecast(name, days = 3, onDataReceivedCallback) {
 		})
 }
 
-function getAutocomplete(name, onDataReceivedCallback) {
+export function getAutocomplete(name, onDataReceivedCallback) {
 	const searchParams = new URLSearchParams({ ...defaultParams, q: name })
 
 	if (abortControllers.autocomplete) abortControllers.autocomplete.abort()
