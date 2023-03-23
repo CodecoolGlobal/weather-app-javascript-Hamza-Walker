@@ -1,4 +1,5 @@
-import { weatherIcons }from "./data/weatherConditions.js"
+import { getImages } from "./scripts/pexelsAPI.js"
+import { weatherIcons } from "./data/weatherConditions.js"
 import { getForecast, getAutocompleteSuggestions } from "./scripts/weatherAPI.js"
 
 const LOCAL_STORAGE_KEY = "app.weather"
@@ -9,6 +10,10 @@ main()
 async function main() {
 	const lastCity = localStorage.getItem(LOCAL_STORAGE_LAST_CITY) ?? "Vienna"
 	const forecast = await getForecast(lastCity, 8)
+
+	const backgroundImage = await getImages("Vienna")
+
+	debug.innerText = JSON.stringify(forecast, null, 2) //JSON.stringify(backgroundImage, null, 2)
 
 	storeAsLastCity(lastCity)
 	updateWidget(forecast)
@@ -41,7 +46,6 @@ async function handleCityChanged() {
 
 	debug.innerText = JSON.stringify(forecast, null, 4)
 	// console.log(forecast.current.condition.code)
-
 }
 
 function storeAsLastCity(city) {
@@ -53,11 +57,9 @@ function updateWidget({ location, current, forecast }) {
 	const { temp_c, is_day, condition, wind_kph, pressure_mb, precip_mm, humidity, cloud, feelslike_c } = current
 	const forecasts = forecast.forecastday
 	const conditionCode = current.condition.code
-	const weatherIcon = weatherIcons.find(icon => icon.code === conditionCode).icon;
+	const weatherIcon = weatherIcons.find((icon) => icon.code === conditionCode).icon
 
 	console.log(weatherIcon)
-
-
 
 	widget_name.innerText = name
 	widget_region.innerText = region
@@ -65,7 +67,7 @@ function updateWidget({ location, current, forecast }) {
 	widget_localtime.innerText = new Date(localtime).toLocaleDateString()
 	widget_temp_c.innerText = temp_c + "°C"
 	widget_is_day.innerText = is_day ? "day" : "night"
-	// add different weather image from the json file 
+	// add different weather image from the json file
 	widget_condition.src = weatherIcon
 	widget_wind_kph.innerText = wind_kph + "km/h"
 	widget_pressure_mb.innerText = pressure_mb + "mbar"
@@ -74,7 +76,7 @@ function updateWidget({ location, current, forecast }) {
 	widget_cloud.innerText = cloud + " cloud?"
 	widget_feelslike_c.innerText = feelslike_c + "°C"
 
-	widget_forecast.innerText = forecasts.map((forecast) => JSON.stringify(forecast, null, 2)).join("\n")
+	// widget_forecast.innerText = forecasts.map((forecast) => JSON.stringify(forecast, null, 2)).join("\n")
 }
 // console.log(weatherCodes);
 
