@@ -1,18 +1,17 @@
-/* Styles for input field */
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
 
 body {
 	margin: 0;
 
 	background-position: center;
 	background-size: cover;
-	backdrop-filter: blur(20px);
+	backdrop-filter: blur(10px);
 
 	height: 100dvh;
-
-	font-family: Arial, Helvetica, sans-serif;
-
-	color: #fff;
-	text-shadow: 1px 0 4px #000, -1px 0 4px #000, 0 -1px 4px #000, 0 1px 4px #000;
+	color: #fbfbfb;
+	font-family: "Varela Round", sans-serif;
+	font-size: 1.25rem;
+	text-shadow: 1px 0 2px #000, -1px 0 2px #000, 0 -1px 2px #000, 0 1px 2px #000;
 }
 
 main {
@@ -20,51 +19,77 @@ main {
 }
 
 .weather-widget {
-	width: 1000px;
 	height: 600px;
 
-	background: #000a;
-	border-radius: 1rem;
+	background: linear-gradient(0deg, #000, #000a);
+	border-radius: 2rem;
+
+	overflow: hidden;
+
+	box-shadow: 0 0 24px #000;
 }
 
 .today,
 .forecast {
 	position: relative;
 	height: 100%;
+
+	box-sizing: border-box;
+	padding: 3rem 0;
 }
 
 .today {
-	border-radius: 1rem;
+	width: 400px;
+	border-radius: 2rem;
 	overflow: hidden;
-	width: 40%;
 
 	background-position: center;
-	background-size: contain;
+	background-size: cover;
 	background-repeat: no-repeat;
+
+	box-shadow: 24px 0 24px 0 #000a;
 }
-.today-temperature {
+.today-temperature :first-child {
+	font-size: 5rem;
+}
+.city-name :first-child {
+	font-size: 2.5rem;
+	font-variant: small-caps;
+	padding: 0;
+	margin: 0;
+}
+
+.forecast {
+	width: 600px;
+	padding: 4rem;
+}
+
+.forecast-day {
+	width: 25%;
+	padding: 0.5rem 0.25rem;
+	border-radius: 0.5rem;
+	box-shadow: 0 0 24px 0 #0008;
+}
+.forecast-day > img {
 	width: 100%;
-	aspect-ratio: 1;
-	font-size: 4rem;
-
-	background-position: center;
-	background-size: contain;
-	background-repeat: no-repeat;
-}
-.today-temperature::after {
-	content: "°C";
-}
-.city-name {
-	position: absolute;
-	top: 0;
 }
 
-.forecast > input {
-	height: 1.2rem;
-	border-radius: 1.2rem;
-	padding-left: 0.5rem;
+input {
+	width: 450px;
+	height: 2rem;
+	border: 0;
+	border-radius: 2rem;
+	padding-left: 1rem;
+	box-shadow: 0 0 4px 0 #000;
 }
-
+.grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1rem;
+}
+.right {
+	text-align: right;
+}
 .flex-row {
 	display: flex;
 }
@@ -77,4 +102,16 @@ main {
 }
 .justify-center {
 	justify-content: center;
+}
+.justify-space-between {
+	justify-content: space-between;
+}
+.gap-025 {
+	gap: 0.25rem;
+}
+.gap-2 {
+	gap: 2rem;
+}
+.gap-4 {
+	gap: 4rem;
 }

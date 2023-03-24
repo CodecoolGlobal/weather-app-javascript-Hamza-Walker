@@ -7,21 +7,64 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>This is FRONTEND</title>
+		<title>Weather Search</title>
 	</head>
 	<body>
-		<main class="flex-row justify-center align-center">
+		<main class="flex-column justify-center align-center gap-2">
+			<h1 class="flex-row">
+				<!-- <div>Cloud Surfing</div> -->
+				<input
+					id="city_input"
+					list="city_options"
+					name="city"
+					type="text"
+					placeholder="Search ..."
+					autocomplete="off"
+				/>
+			</h1>
 			<div class="weather-widget flex-row">
-				<div id="ww_background_image" class="today flex-column justify-center align-center">
-					<div class="today-temperature flex-row justify-center align-center" id="ww_city_temperature"></div>
-					<div id="ww_city_condition"></div>
-					<div class="city-name">
+				<div id="ww_background_image" class="today flex-column justify-space-between align-center">
+					<div class="city-name flex-column align-center">
 						<h1 id="ww_city_name"></h1>
 						<div id="ww_city_country"></div>
 					</div>
+					<div class="today-temperature flex-column justify-center align-center">
+						<div id="ww_city_temperature"></div>
+						<div id="ww_city_condition"></div>
+					</div>
+					<div id="ww_city_local_time" class="local-time"></div>
 				</div>
-				<div class="forecast flex-column">
-					<input id="city_input" list="city_options" name="city" type="text" placeholder="Search" />
+				<div class="forecast flex-column justify-center gap-4">
+					<div class="grid">
+						<div>PRECIPITATION</div>
+						<div id="ww_city_precip" class="right"></div>
+						<div>HUMIDITY</div>
+						<div id="ww_city_humid" class="right"></div>
+						<div>WIND</div>
+						<div id="ww_city_wind" class="right"></div>
+					</div>
+					<div id="ww_city_forecast" class="flex-row gap-025">
+						<div class="forecast-day flex-column align-center">
+							<div></div>
+							<img />
+							<div></div>
+						</div>
+						<div class="forecast-day flex-column align-center">
+							<div></div>
+							<img />
+							<div></div>
+						</div>
+						<div class="forecast-day flex-column align-center"">
+							<div></div>
+							<img />
+							<div></div>
+						</div>
+						<div class="forecast-day flex-column align-center"">
+							<div></div>
+							<img />
+							<div></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</main>

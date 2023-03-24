@@ -12,8 +12,8 @@ const abortControllers = {
 	autocomplete: null
 }
 
-export async function getForecast(name, days = 2) {
-	const searchParams = new URLSearchParams({ ...defaultParams, q: name, days: 3 })
+export async function getForecast(name, days = 3) {
+	const searchParams = new URLSearchParams({ ...defaultParams, q: name, days })
 
 	if (abortControllers.forecast) abortControllers.forecast.abort()
 	abortControllers.forecast = new AbortController()
